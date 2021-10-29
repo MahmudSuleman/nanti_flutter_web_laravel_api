@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'https://nanti-flutter-web-laravel-api.herokuapp.com/*'
     ];
 }
