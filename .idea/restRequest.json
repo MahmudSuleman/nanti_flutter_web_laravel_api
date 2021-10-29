@@ -1,0 +1,6 @@
+{
+  "uri": "https://localhost:8000/api/client",
+  "method": "GET",
+  "body": "",
+  "headers": {}
+}
