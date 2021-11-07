@@ -18,6 +18,7 @@ class CreateDispatchesTable extends Migration
             $table->foreignId('device_id')->constrained();
             $table->foreignId('client_id')->constrained();
             $table->string('note');
+            $table->string('date')->nullable();
             $table->timestamps();
         });
     }

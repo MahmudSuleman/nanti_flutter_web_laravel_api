@@ -10,6 +10,8 @@ class Dispatch extends Model
     use HasFactory;
 
 
+    protected $fillable = ['client_id', 'device_id', 'date', 'note'];
+
     public function device()
     {
         return $this->belongsTo('App\Models\Device');
@@ -18,4 +20,6 @@ class Dispatch extends Model
     public function client(){
         return $this->belongsTo('App\Models\Client');
     }
+
+
 }
