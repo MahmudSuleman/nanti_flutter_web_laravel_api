@@ -2,11 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client;
-use App\Models\ClientType;
-use Database\Factories\ClientTypeFactory;
 use Illuminate\Database\Seeder;
-use Faker\Generator ;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ClientTypesSeeder::class,
             ClientsSeeder::class,
+            ManufacturerSeeder::class,
+            DeviceSeeder::class,
+            DispatchNoteSeeder::class,
+            DispatchSeeder::class,
         ]);
     }
 }
