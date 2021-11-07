@@ -32,6 +32,7 @@ class ClientController extends Controller
 
     }
 
+
     public function update(Request $request, Client $client){
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
@@ -50,4 +51,12 @@ class ClientController extends Controller
 
         return response()->json($client, 200);
     }
+
+
+    public function destroy(Client $client){
+        Client::destroy($client->id);
+        return response()->json(null, 204);
+    }
+
+
 }

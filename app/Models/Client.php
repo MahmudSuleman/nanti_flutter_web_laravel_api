@@ -16,6 +16,11 @@ class Client extends Model
         return $this->belongsTo(ClientType::class);
     }
 
+    public function dispatch_notes(): BelongsTo
+    {
+        return $this->belongsTo(DispatchNote::class);
+    }
+
 
     protected $fillable = ['name', 'client_type_id', 'contact'];
 }
