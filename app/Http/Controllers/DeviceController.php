@@ -16,11 +16,6 @@ class DeviceController extends Controller
         return response()->json($device, 200);
     }
 
-//'name': device.name,
-//      'manufacturer_id': device.manufacturerId,
-//      'model': device.model,
-//      'serial_number': device.serialNumber,
-
 
     public function store(Request $request)
     {
