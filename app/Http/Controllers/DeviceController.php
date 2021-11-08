@@ -62,5 +62,7 @@ class DeviceController extends Controller
       return response()->json(['message' => 'Failed to deleted data']);
     }
 
+   
+
 
 }

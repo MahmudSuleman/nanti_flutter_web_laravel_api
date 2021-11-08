@@ -20,3 +20,5 @@ Route::apiResource('manufacturer', ManufacturerController::class);
 Route::apiResource('client-type', ClientTypeController::class);
 Route::apiResource('dispatch-note', DispatchNoteController::class);
 Route::apiResource('dispatch', DispatchController::class);
+
+Route::post('dispatch/retrieve/{id}', [DispatchController::class, 'retrieve']);

@@ -63,4 +63,16 @@ class DispatchController extends Controller
     {
         //
     }
+
+     public function retrieve($id)
+    {       
+        $device = Device::find($id);
+        if(!$device)
+        return response()->json(['message' => 'Data not found'], 404);
+        
+        $device->is_available = 1;
+        $device->save();
+        Dispatch::where('device_id', $id)->delete();
+        return response()->json(Device::find($id), 200);
+    }
 }
