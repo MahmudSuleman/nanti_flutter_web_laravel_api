@@ -16,7 +16,6 @@ class ClientsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('clients')->truncate();
         $typesCount = ClientType::all()->count();
         $client = ['apple', 'mango', 'pineapple', 'orange'];
 

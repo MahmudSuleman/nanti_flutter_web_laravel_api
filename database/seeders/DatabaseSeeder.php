@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ManufacturerSeeder::class,
             DeviceSeeder::class,
             DispatchNoteSeeder::class,
+            UserSeeder::class,
             // DispatchSeeder::class,
         ]);
     }
