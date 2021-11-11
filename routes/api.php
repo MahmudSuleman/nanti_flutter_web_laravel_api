@@ -44,7 +44,7 @@ Route::post('/login', function(Request $request) {
     }
     return response()->json([
         'token' => $user->createToken($request->name)->plainTextToken,
-        'company'=>$user->company_id,
+        'company'=>$user->client_id,
     ], 200);
 
 })->name('login');

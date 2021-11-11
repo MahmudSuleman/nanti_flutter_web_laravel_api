@@ -18,6 +18,13 @@ class ClientsSeeder extends Seeder
     {
         $typesCount = ClientType::all()->count();
         $client = ['apple', 'mango', 'pineapple', 'orange'];
+        Client::insert([
+            'name' => 'nanti systems',
+            'contact' => 'admin@nantisystems.org',
+            'client_type_id' => rand(1, $typesCount),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         foreach($client as $c){
             Client::insert(['name' => $c, 'contact'=> "{$c}@{$c}.com", 'client_type_id' =>  rand(1, $typesCount)]);
