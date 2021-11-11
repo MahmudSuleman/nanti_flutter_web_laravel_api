@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Validator;
 class DeviceController extends Controller
 {
 
-    public function index()
+    public function index(): JsonResponse
     {
         $device = Device::with('manufacturer')->get();
         return response()->json($device, 200);
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
@@ -37,7 +37,7 @@ class DeviceController extends Controller
     }
 
 
-    public function update(Request $request, Device $device)
+    public function update(Request $request, Device $device): JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'name' => ['required'],
@@ -55,6 +55,7 @@ class DeviceController extends Controller
     }
 
 
+
     public function destroy(Device $device): JsonResponse
     {
       if($device->delete())
@@ -62,7 +63,7 @@ class DeviceController extends Controller
       return response()->json(['message' => 'Failed to deleted data']);
     }
 
-   
+
 
 
 }
