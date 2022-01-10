@@ -17,4 +17,8 @@ class Device extends Model
 
 
     protected $fillable = ['name', 'manufacturer_id', 'model', 'serial_number'];
+
+    protected $casts = [
+        'manufacturer_id'=>'integer'
+    ];
 }

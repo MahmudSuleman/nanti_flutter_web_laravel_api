@@ -6,6 +6,7 @@ use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ClientTypeController;
 use App\Http\Controllers\DispatchNoteController;
 use App\Http\Controllers\DispatchController;
+use App\Http\Controllers\UserController;
 use App\Models\Client;
 use App\Models\Device;
 use App\Models\Dispatch;
@@ -20,56 +21,50 @@ use App\Models\User;
 //    return $request->user();
 //});
 
+// todo: add authentication when app api is done!!!!!!!!!!
+//Route::middleware('auth:sanctum')->group(function () {
 
 
-Route::post('/login', function(Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|string|max:255',
-        'password' => 'required|string|min:6',
-    ]);
+    Route::post('/login', function (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:6',
+        ]);
 
-    if($validator->fails()) {
-        return response()->json($validator->errors(), 400);
-    }
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
+        $user = User::where('name', $request->name)->first();
 
-
-    $user = User::where('name', $request->name)->first();
-
-
-    if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
+        }
         return response()->json([
-            'message' => 'Unauthorized'
-        ], 401);
-    }
-    return response()->json([
-        'token' => $user->createToken($request->name)->plainTextToken,
-        'company'=>$user->client_id,
-    ], 200);
+            'token' => $user->createToken($request->name)->plainTextToken,
+            'company' => $user->client_id,
+        ], 200);
 
-})->name('login');
+    })->name('login');
 
-Route::apiResource('client', ClientController::class);
-Route::apiResource('device', DeviceController::class);
-Route::apiResource('manufacturer', ManufacturerController::class);
-Route::apiResource('client-type', ClientTypeController::class);
-Route::apiResource('dispatch-note', DispatchNoteController::class);
-Route::apiResource('dispatch', DispatchController::class);
-Route::post('dispatch/retrieve/{id}', [DispatchController::class, 'retrieve']);
+    Route::apiResource('client', ClientController::class);
+    Route::apiResource('device', DeviceController::class);
+    Route::apiResource('manufacturer', ManufacturerController::class);
+    Route::apiResource('client-type', ClientTypeController::class);
+    Route::apiResource('dispatch-note', DispatchNoteController::class);
+    Route::apiResource('dispatch', DispatchController::class);
+    Route::apiResource('user', UserController::class);
+    Route::post('dispatch/retrieve/{id}', [DispatchController::class, 'retrieve']);
 
-Route::get('/dashboard-summary', function() {
-    $dispatches = Dispatch::all();
-    $dispatches_count = $dispatches->count();
-    $devices = Device::all();
-    $devices_count = $devices->count();
-    $clients = Client::all();
-    $clients_count = $clients->count();
-    $manufacturers = Manufacturer::all();
-    $manufacturers_count = $manufacturers->count();
-    return response()->json([
-        'dispatches' => $dispatches_count,
-        'devices' => $devices_count,
-        'clients' => $clients_count,
-        'manufacturers' => $manufacturers_count,
-    ]);
-});
+    Route::get('/dashboard-summary', function () {
+        return response()->json([
+            'dispatches' => Dispatch::count(),
+            'devices' => Device::count(),
+            'clients' => Client::count(),
+            'manufacturers' => Manufacturer::count(),
+        ]);
+    });
+
+//});

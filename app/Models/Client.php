@@ -23,4 +23,8 @@ class Client extends Model
 
 
     protected $fillable = ['name', 'client_type_id', 'contact'];
+
+    protected $casts = [
+        'client_type_id' => 'integer'
+    ];
 }

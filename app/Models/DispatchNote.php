@@ -10,11 +10,15 @@ class DispatchNote extends Model
 {
     use HasFactory;
 
-    
+
     protected $fillable = ['client_id', 'note', 'note_date'];
 
     public function client()
     {
         return $this->belongsTo(Client::class)->with('client_type');
     }
+
+    protected $casts = [
+        'client_id' => 'integer'
+    ];
 }
