@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ClientTypeController;
 use App\Http\Controllers\DispatchNoteController;
@@ -28,7 +29,7 @@ use App\Models\User;
     Route::post('/login', function (Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -56,9 +57,11 @@ use App\Models\User;
     Route::apiResource('dispatch-note', DispatchNoteController::class);
     Route::apiResource('dispatch', DispatchController::class);
     Route::apiResource('user', UserController::class);
+    Route::apiResource('maintenance', MaintenanceController::class);
     Route::post('dispatch/retrieve/{id}', [DispatchController::class, 'retrieve']);
 
     Route::get('/dashboard-summary', function () {
+
         return response()->json([
             'dispatches' => Dispatch::count(),
             'devices' => Device::count(),

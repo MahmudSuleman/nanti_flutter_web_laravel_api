@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,11 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
 
-        $user = User::with('client')->get();
+        $user = User::with('client')
+            ->when(\request('id') != 1, function($builder){
+                return $builder->where('client_id', '=' , \request('id'));
+            })
+            ->get();
         return response()->json($user);
     }
 
